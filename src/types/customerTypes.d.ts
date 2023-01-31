@@ -18,3 +18,7 @@ type NewCustomerRequest = {
   name: string;
   cart: Cart;
 };
+
+type CustomerNameParam = {
+  customerName: string;
+};

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getCustomerData, addCustomer } from '../models/CustomerModel';
+import { getCustomerData, addCustomer, getCustomer } from '../models/CustomerModel';
 
 function getAllCustomers(req: Request, res: Response): void {
   res.json(getCustomerData());
@@ -50,4 +50,17 @@ function createNewCustomer(req: Request, res: Response): void {
   res.sendStatus(201); // 201 Created - The customer was successfully added to the dataset
 }
 
-export default { getAllCustomers, createNewCustomer };
+function getCustomerByName(req: Request, res: Response): void {
+  const { customerName } = req.params as CustomerNameParam;
+  const customer = getCustomer(customerName);
+
+  if (!customer) {
+    res.sendStatus(404); // 404 Not Found - the customer was not in the dataset
+    return;
+  }
+
+  // The customer did exist
+  res.json(customer);
+}
+
+export default { getAllCustomers, createNewCustomer, getCustomerByName };

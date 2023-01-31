@@ -15,4 +15,14 @@ function addCustomer(customerName: string, customer: Customer): boolean {
   return true;
 }
 
-export { getCustomerData, addCustomer };
+function getCustomer(customerName: string): Customer | undefined {
+  // If the customer does not exist
+  if (!(customerName in customersManager)) {
+    return undefined; // then exit immediately
+  }
+
+  // The customer is in the dataset
+  return customersManager[customerName];
+}
+
+export { getCustomerData, addCustomer, getCustomer };
