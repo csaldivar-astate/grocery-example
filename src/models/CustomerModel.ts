@@ -1,7 +1,18 @@
-const customers: CustomerManager = {};
+const customersManager: CustomerManager = {};
 
 function getCustomerData(): CustomerManager {
-  return customers;
+  return customersManager;
 }
 
-export { getCustomerData };
+function addCustomer(customerName: string, customer: Customer): boolean {
+  // If the customer is already in the dataset
+  if (customerName in customersManager) {
+    return false; // exit the function immediately
+  }
+
+  // Add the new customer
+  customersManager[customerName] = customer;
+  return true;
+}
+
+export { getCustomerData, addCustomer };
